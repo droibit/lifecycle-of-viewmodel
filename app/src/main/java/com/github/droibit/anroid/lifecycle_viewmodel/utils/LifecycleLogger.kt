@@ -7,7 +7,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import timber.log.Timber
 
 class LifecycleLogger(
-  private val tag: Class<*>
+  private val tag: Class<out LifecycleOwner>
 ) : LifecycleObserver {
 
   @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
