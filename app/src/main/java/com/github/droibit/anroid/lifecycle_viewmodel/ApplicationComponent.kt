@@ -2,9 +2,12 @@ package com.github.droibit.anroid.lifecycle_viewmodel
 
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import com.github.droibit.anroid.lifecycle_viewmodel.di.ActivityScope
+import com.github.droibit.anroid.lifecycle_viewmodel.di.ViewModelFactory
 import com.github.droibit.anroid.lifecycle_viewmodel.ui.MainActivity
 import com.github.droibit.anroid.lifecycle_viewmodel.ui.MainActivityModule
+import dagger.Binds
 import dagger.Component
 import dagger.Provides
 import dagger.android.AndroidInjector
@@ -61,6 +64,9 @@ interface ApplicationComponent : AndroidInjector<SampleApplication> {
     @ActivityScope
     @ContributesAndroidInjector(modules = [MainActivityModule::class])
     fun contributeMainActivityInjector(): MainActivity
+
+    @Binds
+    fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
   }
 
   @Component.Builder
