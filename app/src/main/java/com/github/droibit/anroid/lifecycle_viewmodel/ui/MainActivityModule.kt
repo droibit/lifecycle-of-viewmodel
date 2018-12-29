@@ -1,9 +1,7 @@
 package com.github.droibit.anroid.lifecycle_viewmodel.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.github.droibit.anroid.lifecycle_viewmodel.di.FragmentScope
-import com.github.droibit.anroid.lifecycle_viewmodel.di.ViewModelFactory
 import com.github.droibit.anroid.lifecycle_viewmodel.di.ViewModelKey
 import com.github.droibit.anroid.lifecycle_viewmodel.ui.MainActivityModule.BindingModule
 import com.github.droibit.anroid.lifecycle_viewmodel.ui.MainActivityModule.FragmentBindingModule
@@ -27,8 +25,15 @@ class MainActivityModule {
 
   @Named("activity")
   @Provides
-  fun provideLogger(activity: MainActivity): LifecycleLogger {
-    return LifecycleLogger(activity::class.java)
+  fun provideLogger(): LifecycleLogger {
+    return LifecycleLogger(MainActivity::class.java)
+  }
+
+  @Provides
+  fun providePresenter(
+    @Named("activity") logger: LifecycleLogger
+  ): MainActivityPresenter {
+    return MainActivityPresenter(logger)
   }
 
   @Module

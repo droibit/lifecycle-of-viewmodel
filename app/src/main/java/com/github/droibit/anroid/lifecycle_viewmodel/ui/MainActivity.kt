@@ -17,12 +17,15 @@ class MainActivity : DaggerAppCompatActivity() {
   @field:[Inject Named("activity")]
   internal lateinit var logger: LifecycleLogger
 
+  @Inject internal lateinit var presenter: MainActivityPresenter
+
   @Inject internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
   private val viewModel: MainActivityViewModel by viewModels { viewModelFactory }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    lifecycle.addObserver(logger)
     setContentView(R.layout.activity_main)
 
     if (savedInstanceState == null) {
@@ -34,6 +37,6 @@ class MainActivity : DaggerAppCompatActivity() {
     viewModel.ref.observe(this) {
       logger.log(it)
     }
-    lifecycle.addObserver(logger)
+    lifecycle.addObserver(presenter)
   }
 }

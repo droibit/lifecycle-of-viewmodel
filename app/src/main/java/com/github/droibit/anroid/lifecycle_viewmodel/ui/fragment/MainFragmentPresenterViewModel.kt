@@ -1,4 +1,4 @@
-package com.github.droibit.anroid.lifecycle_viewmodel.ui
+package com.github.droibit.anroid.lifecycle_viewmodel.ui.fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,8 +8,8 @@ import javax.inject.Inject
 import javax.inject.Named
 import kotlin.LazyThreadSafetyMode.NONE
 
-class MainActivityViewModel @Inject constructor(
-  @Named("activity") private val logger: LifecycleLogger
+class MainFragmentPresenterViewModel @Inject constructor(
+  @Named("fragment") private val logger: LifecycleLogger
 ) : ViewModel() {
 
   init {

@@ -1,5 +1,6 @@
 package com.github.droibit.anroid.lifecycle_viewmodel.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,11 +21,19 @@ class MainFragment : DaggerFragment() {
   @field:[Inject Named("fragment")]
   internal lateinit var logger: LifecycleLogger
 
+  @Inject internal lateinit var presenter: MainFragmentPresenter
+
   @Inject internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
   private val activityViewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
 
   private val fragmentViewModel: MainFragmentViewModel by viewModels { viewModelFactory }
+
+  override fun onAttach(context: Context) {
+    viewModelStore
+    super.onAttach(context)
+    lifecycle.addObserver(logger)
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -46,6 +55,6 @@ class MainFragment : DaggerFragment() {
     fragmentViewModel.ref.observe(this) {
       logger.log(it)
     }
-    lifecycle.addObserver(logger)
+    lifecycle.addObserver(presenter)
   }
 }
