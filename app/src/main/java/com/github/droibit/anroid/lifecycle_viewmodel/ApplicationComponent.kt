@@ -2,9 +2,13 @@ package com.github.droibit.anroid.lifecycle_viewmodel
 
 import android.app.Application
 import android.content.Context
+import com.github.droibit.anroid.lifecycle_viewmodel.di.ActivityScope
+import com.github.droibit.anroid.lifecycle_viewmodel.ui.MainActivity
+import com.github.droibit.anroid.lifecycle_viewmodel.ui.MainActivityModule
 import dagger.Component
 import dagger.Provides
 import dagger.android.AndroidInjector
+import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import timber.log.Timber
 import javax.inject.Named
@@ -19,7 +23,7 @@ import javax.inject.Singleton
 )
 interface ApplicationComponent : AndroidInjector<SampleApplication> {
 
-  @dagger.Module
+  @dagger.Module(includes = [ComponentBindingModule::class])
   object Module {
 
     @Provides
@@ -49,6 +53,14 @@ interface ApplicationComponent : AndroidInjector<SampleApplication> {
     @Provides
     @JvmStatic
     fun provideDebuggable() = BuildConfig.DEBUG
+  }
+
+  @dagger.Module
+  interface ComponentBindingModule {
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [MainActivityModule::class])
+    fun contributeMainActivityInjector(): MainActivity
   }
 
   @Component.Builder
