@@ -14,4 +14,8 @@ class LifecycleLogger(
   fun onLifecycleEvent(owner: LifecycleOwner, event: Lifecycle.Event) {
     Timber.d("${tag.simpleName} : $event")
   }
+
+  fun log(message: String) {
+    Timber.d("${tag.simpleName} : $message")
+  }
 }
