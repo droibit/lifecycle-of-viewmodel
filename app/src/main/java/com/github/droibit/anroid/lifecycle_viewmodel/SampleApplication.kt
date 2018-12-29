@@ -12,7 +12,7 @@ class SampleApplication : DaggerApplication() {
   }
 
   @Inject
-  fun boostrap(timberTree: Timber.Tree) {
+  fun bootstrap(timberTree: Timber.Tree) {
     Timber.plant(timberTree)
   }
 }
